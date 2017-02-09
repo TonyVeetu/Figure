@@ -5,26 +5,45 @@ public class Circle extends Figure{
 	
 	private Point centerPoint = null;
 	private double radius = 0;
+	private double square;
+	double prec = 1.10e-4;
 	
 	public Circle(Point center, double r){
 		centerPoint = center;
-		radius = r;
+		if(r > 0){
+			radius = r;
+			square = Math.PI*radius*radius;
+		}
 	}
 	public Circle(Point center, Point nextPoint){
 		centerPoint = center;
-		setRadius(center, nextPoint);		
+		if( checkFigure(center, nextPoint) ){
+			setRadius(center, nextPoint);	
+			square = Math.PI*radius*radius;
+		}
+		else{
+			//TODO Что делать в этом случаи????????
+			//По идеи не нужно создовать обьект!!
+			System.out.println("Error! Radius = 0!");
+		}
+	}		
+	
+	public boolean checkFigure(Point a, Point b){
+		double rad = Point.getLength(a, b);
+		
+		if( (Math.abs(rad - 0.0000001) < prec )) {
+			System.out.println("Error! Radius = 0!");
+			return false;
+		}
+		return true;
 	}
 	
-	private void setRadius(Point a, Point b){	
-		//TODO check:is it correct? 
+	private void setRadius(Point a, Point b){			
 		radius = Point.getLength(a, b);
-		if(radius == 0){
-			System.out.println("radius = 0!");
-		}
 	}
 	
 	public double getSquare(){
-		return Math.PI*radius*radius;	
+		return square;	
 	}
 
 	public double getPerimeter(){
