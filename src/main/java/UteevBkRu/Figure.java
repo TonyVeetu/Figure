@@ -11,6 +11,7 @@ public abstract class Figure implements Comparable<Figure> {
 		if( Math.abs(this.getSquare() - sq2) < prec){
 			return 0;
 		}
+		
 		return (this.getSquare() > sq2) ? 1 : -1;
 	}
 	
